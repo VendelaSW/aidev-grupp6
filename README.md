@@ -1,7 +1,7 @@
 # aidev-grupp6
 Inlämningsuppgift Grupp 6
 Medlemmar:
-Adam
+Adam - Geografi 
 Kevin
 Spirit - Psykologi
 Vendela
