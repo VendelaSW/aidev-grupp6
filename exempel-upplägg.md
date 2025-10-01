@@ -16,7 +16,7 @@ Så vi har flera filer som jobbar ihop istället för att ha hela programmet i e
 
 
 
-&nbsp;		**individuella-frågor.py** # Vi kan också ha egna filer där vi lägger in våra frågor i en class 
+ 		**individuella-frågor.py** # Vi kan också ha egna filer där vi lägger in våra frågor i en class
 
 
 
@@ -31,4 +31,14 @@ Så vi har flera filer som jobbar ihop istället för att ha hela programmet i e
 Låter kanske lite repetativt med en massa filer där alla har en class men som jag förstod det så ska alla göra 1 egen fil och 1 egen class så detta är mitt förslag // Vendela
 
 Tänker också att vi förvarar frågorna i en json fil som questions.py kan plocka från.
+
+
+
+Adam - Geografi
+
+Kevin - Sport
+Spirit - Psykologi
+Joshua - 
+
+Vendela - Musik
 
