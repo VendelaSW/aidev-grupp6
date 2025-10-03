@@ -50,3 +50,8 @@ class musikfrågor:
 
     def get_random_question(self):
         return random.choice(self.frågor)
+    
+    def check_answer(self, question, user_answer):
+        return user_answer.strip().lower() == question["answer"].lower()
+    
+    
