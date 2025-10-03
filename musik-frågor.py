@@ -54,4 +54,6 @@ class musikfrågor:
     def check_answer(self, question, user_answer):
         return user_answer.strip().lower() == question["answer"].lower()
     
-    
+    def print_all_questions(self):
+        for q in self.frågor:
+            print(q["question"])
