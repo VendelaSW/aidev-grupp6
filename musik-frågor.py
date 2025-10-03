@@ -1,3 +1,5 @@
+import random
+
 class musikfrågor:
     def __init__(self):
         self.frågor = [
@@ -46,3 +48,5 @@ class musikfrågor:
      "answer": "B) Dizzy Gillespie"}
     ]
 
+    def get_random_question(self):
+        return random.choice(self.frågor)
