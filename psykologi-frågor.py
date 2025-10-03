@@ -69,17 +69,62 @@ class Psychology:
             1   # Ältande: KBT
         ]
 
+        # Ledtrådar
+        self.hints = [
+            "Handlar om de mest grundläggande mänskliga…",
+            "Känsligt obehag inte fysiskt",
+            "Fundera på vad som händer när belöningar kommer oregelbundet.",
+            "Vad är det som inte stämmer överens?",
+            "Hur skulle du själv velat bli bemött?",
+            "Stresspåslag",
+            "Vad gör barn helst?",
+            "Ett land känt för ansvar och självständighet",
+            "Barnet till…",
+            "Den mest evidensbaserad terapimetoden"
+        ]
+
     # Slumpar fram ett index mellan 0 och antalet frågor - 1 så att jag kan hämta en slumpmässig fråga ur listan
     def get_random_index(self):
         return random.randint(0, len(self.questions) - 1)
 
-# För att testa om koden fungerar så la jag till ett objekt och print
+    # Behöver en funktion för att ställa en fråga som går att återanvända flera gånger
+    def ask_question(self, index):
+        print("\n" + self.questions[index])
+
+        # För att kunna visa alternativen till frågan med en sifferkoppling
+        for i, option in enumerate(self.options[index]):
+            print(f"{i}: {option}")
+
+        # För att användaren ska kunna skriva in ett svar eller be om ledtråd
+        user_input = input("Skriv ditt svar (0-3), eller 'ledtråd' för tips: ")
+
+        # Vill att användaren ska kunna skriva nytt svar efter att ha fått ledtråd och att det inte blir problem med bokstäverna
+        if user_input.lower() == "ledtråd":   # Användaren ber om ledtråd
+            print("💡 Ledtråd:", self.hints[index])
+            user_input = input("Skriv ditt svar (0-3): ")
+
+        # Vill inte att koden crashar om någon skriver in en bokstav istället för siffra
+        if user_input.isdigit():
+            answer = int(user_input)
+
+            # För att hålla koll på antal frågor
+            self.total_questions += 1
+
+            # Behöver kunna kolla om användarens siffra matchar rätt svar
+            if answer == self.answers[index]:
+                print("✅ Rätt svar!")
+                self.score += 1
+            else:
+                print("❌ Fel svar.")
+        else:
+            print("⚠️ Ogiltig input – ingen poäng.")
+
+# För att kunna testa min kod själv utan att det blir problem när psykolog-frågor.py filen importeras till main.py
 if __name__ == "__main__":
     quiz = Psychology()
     index = quiz.get_random_index()
-    print("Fråga:", quiz.questions[index])
-    print("Alternativ:", quiz.options[index])
-    print("Rätt svar är index:", quiz.answers[index])
+    quiz.ask_question(index)
+
 
 # Behöver sen lägga till variables med olika datatypes
 # Behöver även functions/methods - Hur sätter jag upp dessa?
