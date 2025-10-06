@@ -8,3 +8,15 @@ Vendela
 
 Skolprojekt för Python Grund.
 Quiz-spel.
+
+Vem har gjort vilken fil:
+Adam
+Kevin
+Spirit - psykologi-frågor.py
+- class "Psychology"
+- Lista med 10 psykologifrågor
+- Extra ledtrådsfunktion
+- Poängräknare
+- Slumpgenerator
+Joshua
+Vendela
