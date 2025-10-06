@@ -1,8 +1,8 @@
 import random
 
-class musikfrågor:
+class MusicQuestions:
     def __init__(self):
-        self.frågor = [
+        self.questions = [
     {"question": "Vilka artister hade 2020-talets största beef?", 
      "options": ["A) Pusha T och Tyler the creator", "B) Kanye 'Ye' West och Lil Dicky",
                  "C) Kendrick lamar och Drake", "D) Weird Al Yankovich och Chamillionaire"], 
@@ -49,11 +49,11 @@ class musikfrågor:
     ]
 
     def get_random_question(self):
-        return random.choice(self.frågor)
+        return random.choice(self.questions)
     
     def check_answer(self, question, user_answer):
         return user_answer.strip().lower() == question["answer"].lower()
     
     def print_all_questions(self):
-        for q in self.frågor:
+        for q in self.questions:
             print(q["question"])

@@ -1,8 +1,8 @@
-from frågor.musik_frågor import musikfrågor
+from questions.music_questions import MusicQuestions
 
 class GameLoop:
     def __init__(self):
-        self.categories = [musikfrågor()]
+        self.categories = [MusicQuestions()]
         self.score = 0
 
     def start_round(self):

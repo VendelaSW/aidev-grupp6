@@ -1,1 +1,1 @@
-from .musik_frågor import musikfrågor
+from .music_questions import MusicQuestions
