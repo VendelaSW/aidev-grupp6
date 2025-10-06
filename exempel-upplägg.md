@@ -37,7 +37,9 @@ Tänker också att vi förvarar frågorna i en json fil som questions.py kan plo
 Adam - Geografi
 
 Kevin - Sport
+
 Spirit - Psykologi
+
 Joshua - 
 
 Vendela - Musik
