@@ -57,3 +57,7 @@ class MusicQuestions:
     def print_all_questions(self):
         for q in self.questions:
             print(q["question"])
+
+q = MusicQuestions()
+
+q.print_all_questions()

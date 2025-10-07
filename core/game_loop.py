@@ -1,8 +1,11 @@
 from questions.music_questions import MusicQuestions
+from questions.geography_questions import GeographyQuiz
+from questions.psychology_questions import Psychology
+from questions.sport_questions import SportQuestion
 
 class GameLoop:
     def __init__(self):
-        self.categories = [MusicQuestions()]
+        self.categories = [MusicQuestions(), GeographyQuiz(), Psychology(), SportQuestion()]
         self.score = 0
 
     def start_round(self):
