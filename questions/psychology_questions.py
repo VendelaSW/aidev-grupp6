@@ -1,7 +1,8 @@
 import random
-
-class Psychology:
+from questions.questions_class import Question
+class Psychology(Question):
     def __init__(self):
+        super().__init__()
         # För att spara poäng och antal frågor
         self.score = 0
         self.total_questions = 0
@@ -59,13 +60,13 @@ class Psychology:
              "options": ["A) Anna Freud", "B) Astrid Lindgren", "C) Jonas Gardell", "D) Carl Rogers"],
              "answer": "A"}
         ]
-
+    '''
     def get_random_question(self):
         # För att hämta en slumpmässig fråga ur listan
         index = random.randint(0, len(self.questions) - 1)
         question = self.questions[index]
         return question
-
+    '''
     def check_answer(self, question, user_answer):
         # För att kontrollera om användarens svar stämmer med rätt svar
         if user_answer.strip().upper() == question["answer"].upper():

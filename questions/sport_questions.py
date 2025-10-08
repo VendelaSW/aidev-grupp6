@@ -1,7 +1,9 @@
 import random
-class SportQuestion:
+from questions.questions_class import Question
+class SportQuestion(Question):
     def __init__(self):
-        self.SportQuestion = [
+        super().__init__()
+        self.questions = [
         {
             "question": "Vilket land har vunnit flest VM-titlar i herrfotboll?",
             "options": ["a Tyskland", "b Italien", "c Brasilien", "d Argentina"],
@@ -53,20 +55,21 @@ class SportQuestion:
             "answer": "d"
         }
     ]
-   
+    '''
     def random_question(self):
         q = random.choice(self.SportQuestion)
         print(f"\nSlumpad fråga: {q['question']}")
         for option in q["options"]:
             print(option)
         return q["answer"] 
-
+    '''
     def print_all(self):
         for i, q in enumerate(self.SportQuestion, start=1):
             print(f"\nFråga {i}: {q['question']}")
             for option in q["options"]:
                 print(option)
             print(f"Rätt svar: {q['answer']}")
+'''
 q = SportQuestion()
 q.print_all
 correct_answer = q.random_question()
@@ -90,3 +93,4 @@ while True:
      print(f" Fel! Rätt svar är: {correct_answer}")
     
     print(f"Din poäng: {score}")
+'''

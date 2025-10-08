@@ -1,7 +1,9 @@
 import random
+from questions.questions_class import Question
 
-class MusicQuestions:
+class MusicQuestions(Question):
     def __init__(self):
+        super().__init__()
         self.questions = [
         {"question": "Vilka artister hade 2020-talets största beef?", 
         "options": ["A) Pusha T och Tyler the creator", "B) Kanye 'Ye' West och Lil Dicky",
@@ -47,9 +49,6 @@ class MusicQuestions:
         "options": ["A) Louis Armstrong", "B) Dizzy Gillespie", "C) Duke Ellington", "D) Miles Davis"], 
         "answer": "B) Dizzy Gillespie"}
         ]
-
-    def get_random_question(self):
-        return random.choice(self.questions)
     
     def check_answer(self, question, user_answer):
         return user_answer.strip().lower() == question["answer"].lower()

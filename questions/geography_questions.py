@@ -1,9 +1,11 @@
 import random
 import datetime
 import matplotlib.pyplot as plt  # Externt bibliotek
+from questions.questions_class import Question
 
-class GeographyQuiz:
+class GeographyQuiz(Question):
     def __init__(self):
+        super().__init__()
         self.score = 0
         self.questions = [
             {
