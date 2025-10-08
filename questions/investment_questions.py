@@ -1,8 +1,9 @@
 import random  # Para mezclar o elegir preguntas al azar
+from questions.questions_class import Question
 
-
-class InvestmentQuestions:
+class InvestmentQuestions(Question):
     def __init__(self):
+        super().__init__()
         self.questions = [
             {
                 "question": "Vilket svenskt företag är känt för sin musikstreamingtjänst och har investerat i AI-ljudteknik?",
