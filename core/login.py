@@ -1,97 +1,111 @@
-users = {}
-username = input()
-password = input()
-if username in users and users [username] == password:
-    print("inloggning lyckades", username)
-else:
-    print("inloggning misslyckades felanvänarnamn eller lösenord")
+import json
+import getpass
+import hashlib
 
-
-
-class Loggin:
+DATA_FILE = "userdata.json"
+class Account:
     def __init__(self):
-        self.users = []
-    
-    def register(self):
-        print("ny användare")
-        username = input("välj användarnamn")
-        if username in self.users:
-            print("användare finns redan")
-            return
-        password = input("välj lösenord").strip()
-        self.users[username] = password
-        print("inloggning lyckades =)")
+        self.profiles = self.load_profiles()
+        self.logged_in_user = None
+        
+    def load_profiles(self):
+        try:
+            with open(DATA_FILE, "r") as file:
+                return json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError):
+            return {"profiles": {}}
 
-    def loin(self):
-        print("Logga in")
-        username = input("Användarnamn: ")
-        password = input("Lösenord: ")
+    def save_profiles(self):
+        with open(DATA_FILE, "w") as file:
+            json.dump(self.profiles, file, indent=4)
 
-        if username in self.users and self.users[self.users]== password:
-                print(f"inloggning lyckades välkommen {username}")
-                return True
-        else:
-            print("inloggning misslyckades fel användarnamn eller lösenord")
-        return False
+    def create_profile(self):
+        name = input("Ange ett namn för profilen: ").strip()
 
-class Login:
-    def __init__(self):
-        self.users = {}  # använd ett dictionary istället för lista
+        if not name:
+            print("Användarnamn kan inte vara tomt.")
+            return None
 
-    def register(self):
-        print("\n📋 Registrera ny användare")
-        username = input("Välj användarnamn: ").strip().lower()
-        if username in self.users:
-            print("❌ Användare finns redan")
-            return
-        password = input("Välj lösenord: ").strip()
-        self.users[username] = password
-        print("✅ Registrering lyckades! Du kan nu logga in.")
+
+        if name in self.profiles["profiles"]:
+            print("Profilen finns redan! Vill du logga in istället?")
+            if input("(ja/nej): ").strip().lower() == "ja":
+                return self.login()
+            return None
+
+        while True:
+            password = getpass.getpass("Ange ett lösenord: ").strip()
+            if not password:
+                print("Lösenord kan inte vara tomt.")
+                continue
+            confirm = getpass.getpass("Bekräfta lösenordet: ").strip()
+            if password == confirm:
+                break
+            print("Lösenorden matchar inte, försök igen.")
+
+        self.profiles["profiles"][name] = {
+            "password": hashlib.sha256(password.encode()).hexdigest(),
+            "points": 0
+        }
+
+        self.save_profiles()
+        print(f"Profil för {name} skapades!\n")
+        return name
+
 
     def login(self):
-        print("\n🔐 Logga in")
-        username = input("Användarnamn: ").strip().lower()
-        password = input("Lösenord: ").strip()
+        if not self.profiles["profiles"]:
+            print("Inga profiler finns. Skapar ny profil...")
+            return self.create_profile()
+        
+        name = input("Ange användarnamn: ").strip()
+        if name not in self.profiles["profiles"]:
+            print("Profilen hittades inte.")
+            return None
+        while True:
+            password = getpass.getpass("Ange lösenord: ").strip()
+            hashed_input = hashlib.sha256(password.encode()).hexdigest()
+            if hashed_input == self.profiles["profiles"][name]["password"]:
 
-        if username in self.users and self.users[username] == password:
-            print(f"✅ Inloggning lyckades, välkommen {username}!")
-            return True
+                print(f"Välkommen tillbaka, {name}!\n")
+                self.logged_in_user = name
+                return name
+            else:
+                print("Fel lösenord. Försök igen.")
+
+
+    def logout(self):
+        if self.logged_in_user:
+            print(f"{self.logged_in_user} har loggats ut.")
+            self.logged_in_user = None
         else:
-            print("❌ Inloggning misslyckades – fel användarnamn eller lösenord")
-            return False
+            print("Ingen användare är inloggad.")
 
-# -----------------------------
-# Test-spel
-# -----------------------------
-log = Login()
+    def show_logged_in(self):
+        if self.logged_in_user:
+            print(f"Inloggad som: {self.logged_in_user}")
+        else:
+            print("Ingen användare inloggad.")
 
-while True:
-    print("\n1. Registrera ny användare")
-    print("2. Logga in")
-    print("3. Avsluta")
-    choice = input("Välj: ").strip()
+    def is_logged_in(self):
+        return self.logged_in_user is not None
 
-    if choice == "1":
-        log.register()
-    elif choice == "2":
-        if log.login():
-            # Enkel test-loop efter login
-            score = 0
-            running = True
-            print("\n🎮 Spelet startar! Skriv 'q' för att avsluta")
-            while running:
-                action = input("Tryck 'a' för poäng, 'q' för att sluta: ").lower().strip()
-                if action == "a":
-                    score += 1
-                    print(f"Du fick 1 poäng! Total poäng: {score}")
-                elif action == "q":
-                    print(f"Spelet avslutas. Din slutpoäng: {score}")
-                    running = False
-                else:
-                    print("Ogiltigt val, försök igen.")
-            break
-    elif choice == "3":
-        print("👋 Avslutar programmet")
-        break
-    else:
-        print("Ogiltigt val, försök igen")
+
+    def add_points(self, points):
+        if not self.logged_in_user:
+            print("Ingen användare är inloggad.")
+            return
+        
+        self.profiles["profiles"][self.logged_in_user]["points"] += points
+        self.save_profiles()
+        print(f"{points} poäng har lagts till för {self.logged_in_user}!")
+
+    def show_points(self):
+        if not self.logged_in_user:
+            print("Ingen användare är inloggad.")
+            return
+        
+        points = self.profiles["profiles"][self.logged_in_user]["points"]
+        print(f"{self.logged_in_user} har {points} poäng.")
+
+
