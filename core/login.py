@@ -1,8 +1,9 @@
 import json
 import getpass
 import hashlib
+import os
 
-DATA_FILE = "userdata.json"
+DATA_FILE = os.path.join(os.path.dirname(__file__), '../data/user_data.json')
 class Account:
     def __init__(self):
         self.profiles = self.load_profiles()

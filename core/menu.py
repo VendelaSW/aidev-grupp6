@@ -1,11 +1,12 @@
 # main.py
 from core.game_loop import GameLoop
 from core.login import Account
-#from core.scoreboard import show_scoreboard
+from core.scoreboard import Scoreboard
 
 def main_menu():
     game = GameLoop()
     account = Account()
+    scoreboard = Scoreboard()
     while True:
         print("\n=== Huvudmeny ===")
         print("1. Spela")
@@ -18,7 +19,7 @@ def main_menu():
         if choice == "1":
             game.start_round()
         elif choice == "2":
-            show_scoreboard()
+            scoreboard.show_top_scores()
         elif choice == "3":
             if not account.is_logged_in():
                 account.login()
