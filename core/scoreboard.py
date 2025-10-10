@@ -44,11 +44,42 @@ class Scoreboard:
             print("No scores saved yet!\n")
             return
 
-        # Sort by score descending, then by time ascending
-        top_scores = sorted(data, key=lambda x: (-x['score'], x['time']))
+        # Aggregate results by player
+        aggregated = {}
+        for entry in data:
+            name = entry["name"]
+            score = entry["score"]
+            total = entry["total"]
+            time = entry.get("time", 0)  # some older entries might not have time
+            if name not in aggregated:
+                aggregated[name] = {"points": 0, "attempts": 0, "time": 0}
+            aggregated[name]["points"] += score
+            aggregated[name]["attempts"] += total
+            aggregated[name]["time"] += time
+
+        # Calculate accuracy for each player
+        results = []
+        for name, stats in aggregated.items():
+            points = stats["points"]
+            attempts = stats["attempts"]
+            total_time = stats["time"]
+            accuracy = (points / attempts) * 100 if attempts > 0 else 0
+            results.append({
+                "name": name,
+                "points": points,
+                "attempts": attempts,
+                "accuracy": accuracy,
+                "time": total_time
+            })
+
+        # Sort by accuracy descending, then by time ascending
+        top_scores = sorted(results, key=lambda x: (-x["accuracy"], x["time"]))
 
         print("\n--- SCOREBOARD ---")
         for entry in top_scores[:limit]:
-            print(f"""{entry['name']} - {entry['score']}/
-                  {entry['total']} points in {entry['time']}s""")
+            print(f"{entry['name']}: {entry['points']}/{entry['attempts']} "
+                f"({entry['accuracy']:.1f}% korrekt) in {entry['time']}s")
+        print("-------------------\n")
+
+
 

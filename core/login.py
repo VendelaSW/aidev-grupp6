@@ -46,7 +46,8 @@ class Account:
 
         self.profiles["profiles"][name] = {
             "password": hashlib.sha256(password.encode()).hexdigest(),
-            "points": 0
+            "points": 0,
+            "attempts": 0
         }
 
         self.save_profiles()
@@ -73,7 +74,6 @@ class Account:
                 return name
             else:
                 print("Fel lösenord. Försök igen.")
-
 
     def logout(self):
         if self.logged_in_user:
@@ -108,5 +108,17 @@ class Account:
         
         points = self.profiles["profiles"][self.logged_in_user]["points"]
         print(f"{self.logged_in_user} har {points} poäng.")
+
+    def add_result(self, correct, total):
+        """Add results from a round to the logged-in account."""
+        if not self.logged_in_user:
+            print("Ingen användare är inloggad.")
+            return
+        
+        profile = self.profiles["profiles"][self.logged_in_user]
+        profile["points"] += correct
+        profile["attempts"] = profile.get("attempts", 0) + total
+        self.save_profiles()
+        print(f"{correct} poäng lagts till för {self.logged_in_user} ({profile['points']} totalt, {profile['attempts']} försök totalt)")
 
 

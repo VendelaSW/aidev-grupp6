@@ -17,7 +17,8 @@ def main_menu():
         choice = input("Välj ett alternativ: ")
 
         if choice == "1":
-            game.start_round()
+            logged_account = account if account.is_logged_in() else None
+            game.start_round(logged_account, scoreboard)
         elif choice == "2":
             scoreboard.show_top_scores()
         elif choice == "3":

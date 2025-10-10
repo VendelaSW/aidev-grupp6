@@ -3,8 +3,10 @@ from questions.geography_questions import GeographyQuiz
 from questions.psychology_questions import Psychology
 from questions.sport_questions import SportQuestion
 from questions.investment_questions import InvestmentQuestions
+from core.login import Account
+from core.scoreboard import Scoreboard
 import random
-
+import time
 class GameLoop:
     def __init__(self):
         self.categories = [MusicQuestions(), GeographyQuiz(), Psychology(), SportQuestion(), InvestmentQuestions()]
@@ -45,7 +47,10 @@ class GameLoop:
         return {"question": "No question found", "options": [], "answer": None}
 
 
-    def start_round(self):
+    def start_round(self, account=None, scoreboard=None):
+        self.score = 0
+        round_start = time.time()
+
         print("Ny runda!\n")
         for category in self.categories:
             q = self.get_question_from_category(category)
@@ -69,8 +74,16 @@ class GameLoop:
             else:
                 print(f"Fel svar! Rätt svar var {q.get('answer', 'okänt')}\n")
 
-        print(f"Ditt resultat: {self.score}/{len(self.categories)}")
+        round_end = time.time()
+        round_time = round_end - round_start
+        total_questions = len(self.categories)        
 
+        print(f"Ditt resultat: {self.score}/{total_questions}")
+        if account and account.is_logged_in():
+            account.add_result(self.score, total_questions)
+            scoreboard.save_score(account, self.score, total_questions, round_time)
+        else:
+            print("Round not saved—no account logged in.")
 if __name__ == "__main__":
     game = GameLoop()
     while True:
