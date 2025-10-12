@@ -3,6 +3,7 @@ import hashlib
 from core.login import Account
 from core.game_loop import GameLoop
 from core.scoreboard import Scoreboard
+import time
 
 class MainMenu(ctk.CTkFrame):
     def __init__(self, master, switch_frame, account):
@@ -92,6 +93,7 @@ class GameWindow(ctk.CTkFrame):
 
     def start_game(self):
         self.game.start_new_game()
+        self.start_time = time.time()
 
         # Reset question label and button colors
         self.question_label.configure(text="")
@@ -142,11 +144,32 @@ class GameWindow(ctk.CTkFrame):
             self.show_question()
 
     def show_results(self):
+        # Hide option buttons
         for btn in self.option_buttons:
             btn.grid_remove()
+
+        # Show result text
         self.question_label.configure(
             text=f"Du fick {self.game.score}/{len(self.game.questions)} rätt!"
         )
+
+        # End time for the game
+        self.game.end_time = time.time()
+        elapsed = self.game.end_time - self.start_time
+
+        # Access account and scoreboard
+        account = self.master.frames["menu"].account  # your logged-in account
+        scoreboard = self.master.frames["score"].scoreboard  # your Scoreboard instance
+
+        # Save the score
+        scoreboard.save_score(
+            account,
+            self.game.score,
+            len(self.game.questions),
+            elapsed
+        )
+
+
 
 class ScoreboardWindow(ctk.CTkFrame):
     def __init__(self, master, switch_frame, scoreboard):
@@ -376,6 +399,11 @@ class App(ctk.CTk):
         game = GameLoop()
         scoreboard = Scoreboard()
 
+        # ✅ Store them in the App instance so other frames can access them
+        self.account = account
+        self.game = game
+        self.scoreboard = scoreboard
+
         self.frames = {}
         self.create_frames(account, game, scoreboard)
         self.show_frame("menu")
@@ -401,7 +429,7 @@ class App(ctk.CTk):
         elif name == "score":
             self.geometry("500x400")
             frame.update_scores()  # refresh scores whenever the frame is shown
-        elif name == "account" or "register":
+        elif name == ("account", "register"):
             frame.reset()
 
 if __name__ == "__main__":

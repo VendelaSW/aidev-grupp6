@@ -14,6 +14,11 @@
             "password": "9c478bf63e9500cb5db1e85ece82f18c8eb9e52e2f9135acd7f10972c8d563ba",
             "points": 0,
             "attempts": 0
+        },
+        "Lilli": {
+            "password": "6bfa6208040c07092555425c337a1865a6ff750adfb78e8d2bb9bf061e111f10",
+            "points": 0,
+            "attempts": 0
         }
     }
 }
