@@ -9,6 +9,11 @@
             "password": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
             "points": 0,
             "attempts": 0
+        },
+        "test1": {
+            "password": "9c478bf63e9500cb5db1e85ece82f18c8eb9e52e2f9135acd7f10972c8d563ba",
+            "points": 0,
+            "attempts": 0
         }
     }
 }

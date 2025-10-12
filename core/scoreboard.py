@@ -44,42 +44,57 @@ class Scoreboard:
             print("No scores saved yet!\n")
             return
 
-        # Aggregate results by player
-        aggregated = {}
+        # Track best round per player
+        best_rounds = {}
         for entry in data:
             name = entry["name"]
             score = entry["score"]
             total = entry["total"]
-            time = entry.get("time", 0)  # some older entries might not have time
-            if name not in aggregated:
-                aggregated[name] = {"points": 0, "attempts": 0, "time": 0}
-            aggregated[name]["points"] += score
-            aggregated[name]["attempts"] += total
-            aggregated[name]["time"] += time
+            time = entry.get("time", 0)
+            accuracy = (score / total) * 100 if total > 0 else 0
 
-        # Calculate accuracy for each player
-        results = []
-        for name, stats in aggregated.items():
-            points = stats["points"]
-            attempts = stats["attempts"]
-            total_time = stats["time"]
-            accuracy = (points / attempts) * 100 if attempts > 0 else 0
-            results.append({
-                "name": name,
-                "points": points,
-                "attempts": attempts,
-                "accuracy": accuracy,
-                "time": total_time
-            })
+            if name not in best_rounds:
+                best_rounds[name] = {"score": score, "total": total, "accuracy": accuracy, "time": time}
+            else:
+                # Replace only if this round is better by accuracy, or equal accuracy but faster
+                current_best = best_rounds[name]
+                if accuracy > current_best["accuracy"] or (accuracy == current_best["accuracy"] and time < current_best["time"]):
+                    best_rounds[name] = {"score": score, "total": total, "accuracy": accuracy, "time": time}
 
-        # Sort by accuracy descending, then by time ascending
-        top_scores = sorted(results, key=lambda x: (-x["accuracy"], x["time"]))
+        # Convert to list and sort by accuracy descending, then time ascending
+        top_scores = sorted(best_rounds.items(),
+                            key=lambda x: (-x[1]["accuracy"], x[1]["time"]))
 
         print("\n--- SCOREBOARD ---")
-        for entry in top_scores[:limit]:
-            print(f"{entry['name']}: {entry['points']}/{entry['attempts']} "
-                f"({entry['accuracy']:.1f}% korrekt) in {entry['time']}s")
+        for name, stats in top_scores[:limit]:
+            print(f"{name}: {stats['score']}/{stats['total']} "
+                f"({stats['accuracy']:.1f}% korrekt) in {stats['time']}s")
         print("-------------------\n")
+
+    def get_top_scores(self, limit=5):
+        with open(self.filename, "r") as f:
+            data = json.load(f)
+
+        if not data:
+            return []
+
+        best_rounds = {}
+        for entry in data:
+            name = entry["name"]
+            score = entry["score"]
+            total = entry["total"]
+            time = entry.get("time", 0)
+            accuracy = (score / total) * 100 if total > 0 else 0
+
+            if name not in best_rounds or accuracy > best_rounds[name]["accuracy"] or \
+            (accuracy == best_rounds[name]["accuracy"] and time < best_rounds[name]["time"]):
+                best_rounds[name] = {"name": name, "score": score, "total": total, "accuracy": accuracy, "time": time}
+
+        # Return list of dicts including the name
+        top_scores = sorted(best_rounds.values(), key=lambda x: (-x["accuracy"], x["time"]))
+        return top_scores[:limit]
+
+
 
 
 

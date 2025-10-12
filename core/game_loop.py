@@ -11,8 +11,41 @@ class GameLoop:
     def __init__(self):
         self.categories = [MusicQuestions(), GeographyQuiz(), Psychology(), SportQuestion(), InvestmentQuestions()]
         self.score = 0
+        self.current_index = 0
+        self.questions = []
 
-    import random
+    def start_new_game(self):
+        """Prepares all questions for a new round."""
+        self.score = 0
+        self.current_index = 0
+        self.questions = []
+
+        for category in self.categories:
+            q = self.get_question_from_category(category)
+            if q and "question" in q:
+                if "answer" not in q and "correct_answer" in q:
+                    q["answer"] = q["correct_answer"]
+                self.questions.append(q)
+
+    def get_current_question(self):
+        """Returns the current question dict."""
+        if 0 <= self.current_index < len(self.questions):
+            return self.questions[self.current_index]
+        return None
+
+    def submit_answer(self, answer):
+        """Check answer and move to next question. Returns (correct, done)."""
+        q = self.get_current_question()
+        if not q:
+            return False, True  # No question
+
+        correct = q.get("answer", "").lower().strip() in answer.lower().strip()
+        if correct:
+            self.score += 1
+
+        self.current_index += 1
+        done = self.current_index >= len(self.questions)
+        return correct, done
 
     def get_question_from_category(self, category):
         """
