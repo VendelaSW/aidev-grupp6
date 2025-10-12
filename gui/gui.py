@@ -1,4 +1,6 @@
 import customtkinter as ctk
+import hashlib
+from core.login import Account
 
 class MainMenu(ctk.CTkFrame):
     def __init__(self, master, switch_frame):
@@ -78,34 +80,104 @@ class ScoreboardWindow(ctk.CTkFrame):
         self.back_button.grid(row=3, column=0, columnspan=2, pady=20)
 
 class AccountWindow(ctk.CTkFrame):
-    def __init__(self, master, switch_frame):
+    def __init__(self, master, switch_frame, account):
         super().__init__(master)
         self.switch_frame = switch_frame
+        self.account = account
 
-        # Make the entire grid expandable
-        for i in range(4):  # 4 rows: title, option row 1, option row 2, back button
-            self.grid_rowconfigure(i, weight=1)
+        self.grid_rowconfigure(0, weight=1)  # Title
+        self.grid_rowconfigure(1, weight=0)  # Username entry
+        self.grid_rowconfigure(2, weight=0)  # Password label
+        self.grid_rowconfigure(3, weight=0)  # Password entry
+        self.grid_rowconfigure(4, weight=0)  # Bottom expands
+        self.grid_rowconfigure(5, weight=0)
+        self.grid_rowconfigure(5, weight=1)
         for i in range(2):  # 2 columns
             self.grid_columnconfigure(i, weight=1)
 
+        # Question label
+        self.username_label = ctk.CTkLabel(self, text="Username: ", font=("Arial", 16))
+        self.username_label.grid(row=0, column=0, columnspan=2, pady=0, sticky="s")
+
+        # Question label
+        self.password_label = ctk.CTkLabel(self, text="Password: ", font=("Arial", 16))
+        self.password_label.grid(row=2, column=0, columnspan=2, pady=0, sticky="s")
+
+        # Login entry
+        self.username_entry = ctk.CTkEntry(self, )
+        self.username_entry.grid(row=1, column=0, columnspan= 2, pady=0, sticky="n")
+        self.password_entry = ctk.CTkEntry(self, show="*")
+        self.password_entry.grid(row=3, column=0, columnspan= 2, pady=0, sticky="n")
+
+        # Feedback label
+        self.feedback_label = ctk.CTkLabel(self, text="", font=("Arial", 14))
+        self.feedback_label.grid(row=5, column=0, columnspan=2, pady=(5,5), sticky="s")
+
+        # Login button
+        self.login_button = ctk.CTkButton(self, text="Logga in", command=self.try_login)
+        self.login_button.grid(row=4, column=0, columnspan=2, pady=(5, 0), sticky="s")
+
+        # Register button
+        self.register_button = ctk.CTkButton(self, text="Registrera nytt konto", command=self.try_register)
+        self.register_button.grid(row=5, column=0, columnspan=2, pady=(5, 5), sticky="n")
+
         # Back to menu button
         self.back_button = ctk.CTkButton(self, text="Tillbaka till meny", command=lambda: switch_frame("menu"))
-        self.back_button.grid(row=3, column=0, columnspan=2, pady=20)
+        self.back_button.grid(row=6, column=0, columnspan=2, pady=(0, 20), sticky="n")
+
+    def try_login(self):
+        username = self.username_entry.get().strip()
+        password = self.password_entry.get().strip()
+
+        if not username or not password:
+            self.feedback_label.configure(text="Fyll i både användarnamn och lösenord", text_color="red")
+            return
+
+        if username in self.account.profiles["profiles"]:
+            hashed_input = hashlib.sha256(password.encode()).hexdigest()
+            if hashed_input == self.account.profiles["profiles"][username]["password"]:
+                self.account.logged_in_user = username
+                self.feedback_label.configure(text=f"Välkommen, {username}!", text_color="green")
+                return
+
+        self.feedback_label.configure(text="Fel användarnamn eller lösenord", text_color="red")
+
+    def try_register(self):
+        username = self.username_entry.get().strip()
+        password = self.password_entry.get().strip()
+
+        if not username or not password:
+            self.feedback_label.configure(text="Fyll i både användarnamn och lösenord", text_color="red")
+            return
+
+        if username in self.account.profiles["profiles"]:
+            self.feedback_label.configure(text="Användarnamnet finns redan", text_color="red")
+            return
+
+        self.account.profiles["profiles"][username] = {
+            "password": hashlib.sha256(password.encode()).hexdigest(),
+            "points": 0,
+            "attempts": 0
+        }
+        self.account.save_profiles()
+        self.feedback_label.configure(text=f"Konto skapades för {username}", text_color="green")
+
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("PyKodMiljonären")
         self.geometry("400x300")
+        account = Account()
 
         self.frames = {}
-        self.create_frames()
+        self.create_frames(account)
         self.show_frame("menu")
 
-    def create_frames(self):
+    def create_frames(self, account):
         self.frames["menu"] = MainMenu(self, self.show_frame)
         self.frames["game"] = GameWindow(self, self.show_frame)
         self.frames["score"] = ScoreboardWindow(self, self.show_frame)
-        self.frames["account"] = AccountWindow(self, self.show_frame)
+        self.frames["account"] = AccountWindow(self, self.show_frame, account)
         for frame in self.frames.values():
             frame.grid(row=0, column=0, sticky="nsew")
 
