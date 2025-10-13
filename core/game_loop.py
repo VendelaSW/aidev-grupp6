@@ -56,8 +56,9 @@ class GameLoop:
         if hasattr(category, "get_random_question") and callable(category.get_random_question):
             try:
                 return category.get_random_question()
-            except:
-                pass
+            except Exception as e:
+                print(f"Failed to get question from {category}: {e}")
+
         '''
         # 2️⃣ Special hack for SportQuestion
         if isinstance(category, SportQuestion):
@@ -113,10 +114,12 @@ class GameLoop:
 
         print(f"Ditt resultat: {self.score}/{total_questions}")
         if account and account.is_logged_in():
-            account.add_result(self.score, total_questions)
-            scoreboard.save_score(account, self.score, total_questions, round_time)
-        else:
-            print("Round not saved—no account logged in.")
+            try:
+                account.add_result(self.score, total_questions)
+                scoreboard.save_score(account, self.score, total_questions, round_time)
+            except Exception as e:
+                print(f"Could not save score: {e}")
+
 if __name__ == "__main__":
     game = GameLoop()
     while True:
