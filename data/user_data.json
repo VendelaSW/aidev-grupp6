@@ -19,6 +19,11 @@
             "password": "6bfa6208040c07092555425c337a1865a6ff750adfb78e8d2bb9bf061e111f10",
             "points": 0,
             "attempts": 0
+        },
+        "Adam": {
+            "password": "4cdb62147ce3cffb6028d3d31b76b75e8c110d3f474893a36a52e6174c31f98f",
+            "points": 0,
+            "attempts": 0
         }
     }
 }
