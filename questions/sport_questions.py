@@ -6,53 +6,53 @@ class SportQuestion(Question):
         self.questions = [
         {
             "question": "Vilket land har vunnit flest VM-titlar i herrfotboll?",
-            "options": ["a Tyskland", "b Italien", "c Brasilien", "d Argentina"],
-            "answer": "c"
+            "options": ["A Tyskland", "B Italien", "C Brasilien", "D Argentina"],
+            "answer": "C"
         },
         {
             "question": "Hur många spelare finns på plan i ett ishockeylag (per lag) under vanlig spel?",
-            "options": ["a 5", " b 6", "c 7", "d 8"],
-            "answer": "b"
+            "options": ["A 5", " B 6", "C 7", "D 8"],
+            "answer": "B"
         },
         {
             "question": "I vilken sport används termen 'love' för att beskriva noll poäng?",
-            "options": ["a Badminton", "b Tennis", "c Cricket", "d Rugby"],
-            "answer": "b"
+            "options": ["A Badminton", "B Tennis", "C Cricket", "D Rugby"],
+            "answer": "B"
         },
         {
             "question": "Vilken svensk friidrottare satte världsrekord i stavhopp 2020?",
-            "options": ["a Stefan Holm", "b Armand Duplantis", "c Patrik Sjöberg", "d Kajsa Bergqvist"],
-            "answer": "b"
+            "options": ["A Stefan Holm", "B Armand Duplantis", "C Patrik Sjöberg", "D Kajsa Bergqvist"],
+            "answer": "B"
         },
         {
             "question": "Hur lång är en maratonlöpning?",
-            "options": ["a 36km", "b 40 km", "c 42km", "d 45 km"],
-            "answer": "c"
+            "options": ["A 36km", "B 40 km", "C 42km", "D 45 km"],
+            "answer": "C"
         },
         {
             "question": "Vilken sport förknippas med Tiger Woods?",
-            "options": ["a Golf", "b Tennis", "c Basket", "d Baseboll"],
-            "answer": "a"
+            "options": ["A Golf", "B Tennis", "C Basket", "D Baseboll"],
+            "answer": "A"
         },
         {
             "question": "I vilken sport kan man vinna Stanley Cup?",
-            "options": ["a Fotboll", "b Ishockey", "c Baseboll", "d Basket"],
-            "answer": "b"
+            "options": ["A Fotboll", "B Ishockey", "C Baseboll", "D Basket"],
+            "answer": "B"
         },
         {
             "question": "Vilket land arrangerade de Olympiska sommarspelen 2012?",
-            "options": ["a Kina", "b Brasilien", "c Storbritannien", "d Grekland"],
-            "answer": "c"
+            "options": ["A Kina", "B Brasilien", "C Storbritannien", "D Grekland"],
+            "answer": "C"
         },
         {
             "question": "Vad heter den kända svenska skidåkaren som vann tre OS-guld i Turin 2006?",
-            "options": ["a Charlotte Kalla", "b Anja Pärson", "c Gunde Svan", "d Thomas Wassberg"],
-            "answer": "b"
+            "options": ["A Charlotte Kalla", "B Anja Pärson", "C Gunde Svan", "D Thomas Wassberg"],
+            "answer": "B"
         },
         {
             "question": "Hur många minuter spelas en vanlig fotbollsmatch (exklusive tilläggstid)?",
-            "options": ["a 60 minuter", "b 70 minuter", "c 80 minuter", "d 90 minuter"],
-            "answer": "d"
+            "options": ["A 60 minuter", "B 70 minuter", "C 80 minuter", "D 90 minuter"],
+            "answer": "D"
         }
     ]
     '''
