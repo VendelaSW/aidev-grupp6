@@ -8,7 +8,6 @@ class GeographyQuiz(Question):
         super().__init__()
         self.score = 0
         self.questions = [
-           [
     {
         "question": "Vilket är världens största land till ytan?",
         "options": ["A) Kanada", "B) USA", "C) Ryssland", "D) Kina"],
@@ -58,10 +57,8 @@ class GeographyQuiz(Question):
         "question": "Vilken är världens största ö?",
         "options": ["A) Grönland", "B) Nya Guinea", "C) Borneo", "D) Madagaskar"],
         "answer": "A) Grönland"
-    }
-]
+    }]
 
-        ]
 
     def start_quiz(self):
         print("\n Welcome to the Geography Quiz!\n")
