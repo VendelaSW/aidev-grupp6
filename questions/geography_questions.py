@@ -8,56 +8,59 @@ class GeographyQuiz(Question):
         super().__init__()
         self.score = 0
         self.questions = [
-            {
-                "question": "Which is the largest country in the world by area?",
-                "options": ["A) Canada", "B) USA", "C) Russia", "D) China"],
-                "answer": "C) Russia"
-            },
-            {
-                "question": "What is the longest river in the world?",
-                "options": ["A) Nile", "B) Amazon River", "C) Yangtze", "D) Mississippi"],
-                "answer": "A) Nile"
-            },
-            {
-                "question": "Which country has the largest population in the world?",
-                "options": ["A) India", "B) USA", "C) China", "D) Indonesia"],
-                "answer": "A) India"
-            },
-            {
-                "question": "What is the capital city of Canada?",
-                "options": ["A) Toronto", "B) Ottawa", "C) Vancouver", "D) Montreal"],
-                "answer": "B) Ottawa"
-            },
-            {
-                "question": "On which continent is the Sahara Desert located?",
-                "options": ["A) Asia", "B) Africa", "C) Australia", "D) South America"],
-                "answer": "B) Africa"
-            },
-            {
-                "question": "Which country consists of the most islands?",
-                "options": ["A) Indonesia", "B) Philippines", "C) Japan", "D) Sweden"],
-                "answer": "D) Sweden"
-            },
-            {
-                "question": "Which ocean lies east of Africa?",
-                "options": ["A) Atlantic Ocean", "B) Indian Ocean", "C) Pacific Ocean", "D) Mediterranean Sea"],
-                "answer": "B) Indian Ocean"
-            },
-            {
-                "question": "What is the highest mountain in Europe?",
-                "options": ["A) Mont Blanc", "B) Matterhorn", "C) Elbrus", "D) Kebnekaise"],
-                "answer": "C) Elbrus"
-            },
-            {
-                "question": "In which country are the Pyramids of Giza located?",
-                "options": ["A) Mexico", "B) Egypt", "C) Sudan", "D) Jordan"],
-                "answer": "B) Egypt"
-            },
-            {
-                "question": "What is the largest island in the world?",
-                "options": ["A) Greenland", "B) New Guinea", "C) Borneo", "D) Madagascar"],
-                "answer": "A) Greenland"
-            }
+           [
+    {
+        "question": "Vilket är världens största land till ytan?",
+        "options": ["A) Kanada", "B) USA", "C) Ryssland", "D) Kina"],
+        "answer": "C) Ryssland"
+    },
+    {
+        "question": "Vilken är världens längsta flod?",
+        "options": ["A) Nilen", "B) Amazonfloden", "C) Yangtze", "D) Mississippi"],
+        "answer": "A) Nilen"
+    },
+    {
+        "question": "Vilket land har störst befolkning i världen?",
+        "options": ["A) Indien", "B) USA", "C) Kina", "D) Indonesien"],
+        "answer": "A) Indien"
+    },
+    {
+        "question": "Vad heter Kanadas huvudstad?",
+        "options": ["A) Toronto", "B) Ottawa", "C) Vancouver", "D) Montreal"],
+        "answer": "B) Ottawa"
+    },
+    {
+        "question": "På vilken kontinent ligger Saharaöknen?",
+        "options": ["A) Asien", "B) Afrika", "C) Australien", "D) Sydamerika"],
+        "answer": "B) Afrika"
+    },
+    {
+        "question": "Vilket land består av flest öar?",
+        "options": ["A) Indonesien", "B) Filippinerna", "C) Japan", "D) Sverige"],
+        "answer": "D) Sverige"
+    },
+    {
+        "question": "Vilket hav ligger öster om Afrika?",
+        "options": ["A) Atlanten", "B) Indiska oceanen", "C) Stilla havet", "D) Medelhavet"],
+        "answer": "B) Indiska oceanen"
+    },
+    {
+        "question": "Vilket är Europas högsta berg?",
+        "options": ["A) Mont Blanc", "B) Matterhorn", "C) Elbrus", "D) Kebnekaise"],
+        "answer": "C) Elbrus"
+    },
+    {
+        "question": "I vilket land ligger pyramiderna i Giza?",
+        "options": ["A) Mexiko", "B) Egypten", "C) Sudan", "D) Jordanien"],
+        "answer": "B) Egypten"
+    },
+    {
+        "question": "Vilken är världens största ö?",
+        "options": ["A) Grönland", "B) Nya Guinea", "C) Borneo", "D) Madagaskar"],
+        "answer": "A) Grönland"
+    }
+]
+
         ]
 
     def start_quiz(self):
