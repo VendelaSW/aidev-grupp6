@@ -1,7 +1,7 @@
 # tests/test_investment_questions.py
 # Tester för InvestmentQuestions (pytest)
 
-from investment_questions import InvestmentQuestions
+from questions.investment_questions import InvestmentQuestions
 
 def test_class_creation():
     # Testar att klassen kan skapas korrekt
