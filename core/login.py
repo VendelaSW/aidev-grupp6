@@ -17,8 +17,12 @@ class Account:
             return {"profiles": {}}
 
     def save_profiles(self):
-        with open(DATA_FILE, "w") as file:
-            json.dump(self.profiles, file, indent=4)
+        try:
+            with open(DATA_FILE, "w") as file:
+                json.dump(self.profiles, file, indent=4)
+        except OSError as e:
+            print(f"Fel vid sparande av profiler: {e}")
+
 
     def create_profile(self):
         name = input("Ange ett namn för profilen: ").strip()

@@ -4,6 +4,31 @@
             "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
             "points": 14,
             "attempts": 15
+        },
+        "test": {
+            "password": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+            "points": 0,
+            "attempts": 0
+        },
+        "test1": {
+            "password": "9c478bf63e9500cb5db1e85ece82f18c8eb9e52e2f9135acd7f10972c8d563ba",
+            "points": 0,
+            "attempts": 0
+        },
+        "Lilli": {
+            "password": "6bfa6208040c07092555425c337a1865a6ff750adfb78e8d2bb9bf061e111f10",
+            "points": 0,
+            "attempts": 0
+        },
+        "Adam": {
+            "password": "4cdb62147ce3cffb6028d3d31b76b75e8c110d3f474893a36a52e6174c31f98f",
+            "points": 0,
+            "attempts": 0
+        },
+        "kevin": {
+            "password": "5696d539b4ffc960aacbcc0c6982392085d0a1411bc7b8eabc956d393a27c62e",
+            "points": 0,
+            "attempts": 0
         }
     }
 }

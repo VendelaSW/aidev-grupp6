@@ -11,8 +11,41 @@ class GameLoop:
     def __init__(self):
         self.categories = [MusicQuestions(), GeographyQuiz(), Psychology(), SportQuestion(), InvestmentQuestions()]
         self.score = 0
+        self.current_index = 0
+        self.questions = []
 
-    import random
+    def start_new_game(self):
+        """Prepares all questions for a new round."""
+        self.score = 0
+        self.current_index = 0
+        self.questions = []
+
+        for category in self.categories:
+            q = self.get_question_from_category(category)
+            if q and "question" in q:
+                if "answer" not in q and "correct_answer" in q:
+                    q["answer"] = q["correct_answer"]
+                self.questions.append(q)
+
+    def get_current_question(self):
+        """Returns the current question dict."""
+        if 0 <= self.current_index < len(self.questions):
+            return self.questions[self.current_index]
+        return None
+
+    def submit_answer(self, answer):
+        """Check answer and move to next question. Returns (correct, done)."""
+        q = self.get_current_question()
+        if not q:
+            return False, True  # No question
+
+        correct = q.get("answer", "").lower().strip() in answer.lower().strip()
+        if correct:
+            self.score += 1
+
+        self.current_index += 1
+        done = self.current_index >= len(self.questions)
+        return correct, done
 
     def get_question_from_category(self, category):
         """
@@ -23,8 +56,9 @@ class GameLoop:
         if hasattr(category, "get_random_question") and callable(category.get_random_question):
             try:
                 return category.get_random_question()
-            except:
-                pass
+            except Exception as e:
+                print(f"Failed to get question from {category}: {e}")
+
         '''
         # 2️⃣ Special hack for SportQuestion
         if isinstance(category, SportQuestion):
@@ -80,10 +114,12 @@ class GameLoop:
 
         print(f"Ditt resultat: {self.score}/{total_questions}")
         if account and account.is_logged_in():
-            account.add_result(self.score, total_questions)
-            scoreboard.save_score(account, self.score, total_questions, round_time)
-        else:
-            print("Round not saved—no account logged in.")
+            try:
+                account.add_result(self.score, total_questions)
+                scoreboard.save_score(account, self.score, total_questions, round_time)
+            except Exception as e:
+                print(f"Could not save score: {e}")
+
 if __name__ == "__main__":
     game = GameLoop()
     while True:
