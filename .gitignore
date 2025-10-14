@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env/
+.venv/
+
+# VSCode / PyCharm / other IDEs
+.vscode/
+.idea/
+
+# macOS / Windows system files
+.DS_Store
+Thumbs.db
+
+# Test cache
+.pytest_cache/
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Local settings or secrets
+.env
+*.sqlite3
