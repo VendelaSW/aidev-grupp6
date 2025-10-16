@@ -30,8 +30,8 @@ This project was created as part of our Python course to practice:
 
 Clone the repository and install dependencies:
 bash
-git clone https://github.com/USERNAME/REPOSITORY_NAME.git
-cd REPOSITORY_NAME
+git clone git@github.com:VendelaSW/aidev-grupp6.git
+cd aidev-grupp6.git
 pip install -r requirements.txt
 
 ---
@@ -49,7 +49,7 @@ Run the game with python main.py
 | Spirit       | Developer      | Communications, merge conflicts, Psychology Questions |
 
 ---
-
+## Folder Structure
 aidev-grupp6/
 ├── README.md
 ├── core
