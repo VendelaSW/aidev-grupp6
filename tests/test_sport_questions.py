@@ -1,5 +1,5 @@
 import pytest
-from sport_question import SportQuestion
+from questions.sport_questions import SportQuestion
 
 def test_number_of_questions():
     """Testar att vi har 10 frågor"""
@@ -11,7 +11,7 @@ def test_random_question_answer_valid():
     q = SportQuestion()
     # Kör random_question flera gånger för att täcka flera frågor
     for _ in range(10):
-        answer = q.random_question()
+        answer = q.get_random_question()
         # Rätt svar ska alltid vara en av 'a', 'b', 'c', 'd' (små bokstäver)
         assert answer.lower() in ["a", "b", "c", "d"]
 
