@@ -2,21 +2,32 @@
 Inlämningsuppgift Grupp 6
 Medlemmar:
 Adam - Geografi 
-Kevin
+Kevin - Sport
 Spirit - Psykologi
-Vendela
+Vendela - Musik
 
 Skolprojekt för Python Grund.
 Quiz-spel.
 
-Vem har gjort vilken fil:
-Adam
-Kevin
-Spirit - psykologi-frågor.py
+Roller och filer man har jobbat på:
+Adam -  Ansvarig för scoreboard
+geography_questions.py
+scoreboard.py
+
+Kevin - Ansvarig för login
+sports_questions.py
+login.py
+
+Spirit - Kommunikation och presentationsansvarig
+psykologi-frågor.py
 - class "Psychology"
 - Lista med 10 psykologifrågor
 - Extra ledtrådsfunktion
 - Poängräknare
 - Slumpgenerator
-Joshua
-Vendela
+  
+Joshua - 
+investment_questions.py
+
+Vendela - Gruppansvarig
+
