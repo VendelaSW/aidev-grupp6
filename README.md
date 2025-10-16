@@ -27,13 +27,13 @@ This project was created as part of our Python course to practice:
 ---
 
 ## ⚙️ Installation  
-
+```
 Clone the repository and install dependencies:
 bash
 git clone git@github.com:VendelaSW/aidev-grupp6.git
 cd aidev-grupp6.git
 pip install -r requirements.txt
-
+```
 ---
 
 Run the game with python main.py
@@ -50,6 +50,7 @@ Run the game with python main.py
 
 ---
 ## Folder Structure
+```
 aidev-grupp6/
 ├── README.md
 ├── core
@@ -82,7 +83,7 @@ aidev-grupp6/
     ├── test_investment_questions.py
     ├── test_psychology_questions.py
     └── test_sport_questions.py
-
+```
 ---
 
 We learned how to:
