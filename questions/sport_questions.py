@@ -55,14 +55,14 @@ class SportQuestion(Question):
             "answer": "D"
         }
     ]
-    '''
+    
     def random_question(self):
-        q = random.choice(self.SportQuestion)
+        q = random.choice(self.questions)
         print(f"\nSlumpad fråga: {q['question']}")
         for option in q["options"]:
             print(option)
         return q["answer"] 
-    '''
+    
     def print_all(self):
         for i, q in enumerate(self.SportQuestion, start=1):
             print(f"\nFråga {i}: {q['question']}")
